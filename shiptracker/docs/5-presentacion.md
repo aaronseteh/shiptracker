@@ -221,6 +221,12 @@ Todo ello en un único proyecto Spring Boot sin servicios de pago.
 
 ---
 
+### Repositorio del proyecto
+
+**https://github.com/aaronseteh/shiptracker**
+
+---
+
 ## Notas para el presentador
 
 ### Gestión del tiempo (15 min)
