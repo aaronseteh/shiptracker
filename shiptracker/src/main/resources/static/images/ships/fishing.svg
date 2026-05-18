@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 160">
+  <!-- Casco corto y robusto -->
+  <path d="M80,115 L420,115 L400,138 L100,138 Z" fill="#0a1628"/>
+  <path d="M80,115 L100,100 L400,100 L420,115 Z" fill="#1e3a5f"/>
+  <!-- Proa curva -->
+  <path d="M400,100 L435,115 L400,138 Z" fill="#0a1628"/>
+  <!-- Popa -->
+  <path d="M80,115 L65,115 L100,138 Z" fill="#0a1628"/>
+  <!-- Superestructura delantera -->
+  <rect x="90" y="60" width="130" height="40" rx="3" fill="#1e4d8c"/>
+  <rect x="100" y="40" width="100" height="22" rx="2" fill="#2563eb"/>
+  <rect x="110" y="24" width="75" height="18" rx="2" fill="#3b82f6"/>
+  <!-- Chimenea -->
+  <rect x="145" y="8" width="18" height="20" rx="2" fill="#111827"/>
+  <!-- Mástil principal con tangones -->
+  <line x1="280" y1="100" x2="280" y2="18" stroke="#4b5563" stroke-width="4"/>
+  <!-- Tangón izquierdo -->
+  <line x1="280" y1="38" x2="210" y2="70" stroke="#6b7280" stroke-width="2.5"/>
+  <!-- Tangón derecho -->
+  <line x1="280" y1="38" x2="350" y2="70" stroke="#6b7280" stroke-width="2.5"/>
+  <!-- Crow's nest -->
+  <rect x="270" y="14" width="20" height="12" rx="2" fill="#374151"/>
+  <!-- Cubierta de trabajo (popa) -->
+  <rect x="230" y="90" width="160" height="10" fill="#374151"/>
+  <!-- Equipos en cubierta -->
+  <rect x="240" y="80" width="25" height="20" rx="2" fill="#4b5563"/>
+  <rect x="275" y="82" width="20" height="18" rx="2" fill="#4b5563"/>
+  <!-- Ventanas puente -->
+  <rect x="115" y="28" width="10" height="10" rx="1" fill="#bfdbfe"/>
+  <rect x="132" y="28" width="10" height="10" rx="1" fill="#bfdbfe"/>
+  <rect x="149" y="28" width="10" height="10" rx="1" fill="#bfdbfe"/>
+  <rect x="166" y="28" width="10" height="10" rx="1" fill="#bfdbfe"/>
+  <!-- Línea de flotación -->
+  <line x1="100" y1="126" x2="400" y2="126" stroke="#f97316" stroke-width="1.5" opacity="0.6"/>
+</svg>

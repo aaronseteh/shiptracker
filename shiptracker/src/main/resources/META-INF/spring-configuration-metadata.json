@@ -1,0 +1,54 @@
+{
+  "properties": [
+    {
+      "name": "marine.api.mock",
+      "type": "java.lang.Boolean",
+      "description": "Activa el modo mock (18 barcos simulados). Se activa automáticamente si no hay datos AIS en caché."
+    },
+    {
+      "name": "aisstream.api.key",
+      "type": "java.lang.String",
+      "description": "API key de aisstream.io para recibir datos AIS en tiempo real (gratuita en aisstream.io)."
+    },
+    {
+      "name": "aisstream.bbox.min-lat",
+      "type": "java.lang.Double",
+      "description": "Latitud mínima del bounding box de seguimiento AIS."
+    },
+    {
+      "name": "aisstream.bbox.max-lat",
+      "type": "java.lang.Double",
+      "description": "Latitud máxima del bounding box de seguimiento AIS."
+    },
+    {
+      "name": "aisstream.bbox.min-lng",
+      "type": "java.lang.Double",
+      "description": "Longitud mínima del bounding box de seguimiento AIS."
+    },
+    {
+      "name": "aisstream.bbox.max-lng",
+      "type": "java.lang.Double",
+      "description": "Longitud máxima del bounding box de seguimiento AIS."
+    },
+    {
+      "name": "equasis.username",
+      "type": "java.lang.String",
+      "description": "Email de la cuenta gratuita en equasis.org para obtener datos técnicos de buques."
+    },
+    {
+      "name": "equasis.password",
+      "type": "java.lang.String",
+      "description": "Contraseña de la cuenta de equasis.org."
+    },
+    {
+      "name": "datalastic.api.key",
+      "type": "java.lang.String",
+      "description": "API key de Datalastic (alternativa a Equasis para datos técnicos de buques)."
+    },
+    {
+      "name": "spring.mail.password",
+      "type": "java.lang.String",
+      "description": "Contraseña de aplicación Gmail (Google Account → Seguridad → Contraseñas de aplicación)."
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<footer th:fragment="footer" class="footer">
+    <div class="footer-content">
+        <div class="footer-brand">
+            <span class="logo-icon">&#9875;</span>
+            <span class="footer-title">ShipTracker</span>
+            <p class="footer-desc">Rastreador de barcos en tiempo real con datos AIS globales</p>
+        </div>
+        <div class="footer-links">
+            <div class="footer-col">
+                <h4>Navegación</h4>
+                <ul>
+                    <li><a th:href="@{/}">Inicio</a></li>
+                    <li><a th:href="@{/map}">Mapa en vivo</a></li>
+                    <li><a th:href="@{/ships}">Listado de barcos</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Tecnología</h4>
+                <ul>
+                    <li><a href="https://spring.io/projects/spring-boot" target="_blank">Spring Boot</a></li>
+                    <li><a href="https://spring.io/projects/spring-security" target="_blank">Spring Security</a></li>
+                    <li><a href="https://www.thymeleaf.org" target="_blank">Thymeleaf</a></li>
+                    <li><a href="https://www.h2database.com" target="_blank">H2 Database</a></li>
+                    <li><a href="https://aisstream.io" target="_blank">aisstream.io</a></li>
+                    <li><a href="https://leafletjs.com" target="_blank">Leaflet.js</a></li>
+                    <li><a href="https://www.openstreetmap.org" target="_blank">OpenStreetMap</a></li>
+                    <li><a href="https://jsoup.org" target="_blank">Jsoup</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2026 ShipTracker — Proyecto académico DAW</p>
+    </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 160">
+  <!-- Casco -->
+  <path d="M10,110 L480,110 L460,135 L30,135 Z" fill="#0a1628"/>
+  <path d="M10,110 L30,95 L460,95 L480,110 Z" fill="#1e3a5f"/>
+  <!-- Proa -->
+  <path d="M460,95 L490,110 L460,135 Z" fill="#0a1628"/>
+  <!-- Superestructura popa -->
+  <rect x="360" y="55" width="90" height="40" rx="3" fill="#1e4d8c"/>
+  <rect x="375" y="38" width="60" height="20" rx="2" fill="#2563eb"/>
+  <!-- Puente de mando -->
+  <rect x="385" y="25" width="40" height="15" rx="2" fill="#3b82f6"/>
+  <!-- Chimenea -->
+  <rect x="400" y="10" width="15" height="20" rx="2" fill="#1e3a5f"/>
+  <!-- Mástil proa -->
+  <line x1="80" y1="95" x2="80" y2="45" stroke="#1e3a5f" stroke-width="3"/>
+  <line x1="60" y1="55" x2="100" y2="55" stroke="#1e3a5f" stroke-width="2"/>
+  <!-- Contenedores -->
+  <rect x="100" y="68" width="38" height="27" rx="2" fill="#dc2626"/>
+  <rect x="145" y="68" width="38" height="27" rx="2" fill="#16a34a"/>
+  <rect x="190" y="68" width="38" height="27" rx="2" fill="#2563eb"/>
+  <rect x="235" y="68" width="38" height="27" rx="2" fill="#d97706"/>
+  <rect x="280" y="68" width="38" height="27" rx="2" fill="#7c3aed"/>
+  <rect x="325" y="68" width="28" height="27" rx="2" fill="#dc2626"/>
+  <!-- Fila inferior contenedores -->
+  <rect x="100" y="95" width="38" height="15" rx="1" fill="#b91c1c"/>
+  <rect x="145" y="95" width="38" height="15" rx="1" fill="#15803d"/>
+  <rect x="190" y="95" width="38" height="15" rx="1" fill="#1d4ed8"/>
+  <rect x="235" y="95" width="38" height="15" rx="1" fill="#b45309"/>
+  <rect x="280" y="95" width="38" height="15" rx="1" fill="#6d28d9"/>
+  <!-- Ventanas puente -->
+  <rect x="388" y="28" width="7" height="8" rx="1" fill="#bfdbfe"/>
+  <rect x="400" y="28" width="7" height="8" rx="1" fill="#bfdbfe"/>
+  <rect x="412" y="28" width="7" height="8" rx="1" fill="#bfdbfe"/>
+  <!-- Línea de flotación -->
+  <line x1="30" y1="120" x2="460" y2="120" stroke="#00b4d8" stroke-width="1.5" opacity="0.5"/>
+</svg>

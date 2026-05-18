@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis Favoritos — ShipTracker</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<main class="page-main">
+    <div class="container">
+        <div class="page-header">
+            <h1>&#11088; Mis Favoritos</h1>
+            <p th:text="${favorites.size()} + ' barcos guardados'">0 barcos guardados</p>
+        </div>
+
+        <!-- Notificaciones -->
+        <div th:if="${success}" class="alert alert-success" th:text="${success}"></div>
+        <div th:if="${error}" class="alert alert-error" th:text="${error}"></div>
+
+        <!-- Lista de favoritos -->
+        <div th:if="${favorites.isEmpty()}" class="empty-state">
+            <div class="empty-icon">&#128674;</div>
+            <h3>Aún no tienes favoritos</h3>
+            <p>Explora barcos y añádelos a tu lista de favoritos</p>
+            <a th:href="@{/ships}" class="btn btn-primary">Explorar barcos</a>
+        </div>
+
+        <div th:if="${!favorites.isEmpty()}" class="favorites-grid">
+            <div th:each="fav : ${favorites}" class="fav-card">
+                <div class="fav-card-header">
+                    <div class="fav-info">
+                        <span class="fav-type" th:text="${fav.shipType}">Tipo</span>
+                        <span class="fav-flag" th:text="${fav.shipFlag}">??</span>
+                    </div>
+                    <span class="fav-date" th:text="${#temporals.format(fav.addedAt, 'dd/MM/yyyy')}">00/00/0000</span>
+                </div>
+
+                <h3 class="fav-name" th:text="${fav.shipName}">NOMBRE</h3>
+                <p class="fav-mmsi">MMSI: <span th:text="${fav.mmsi}">000</span></p>
+
+                <!-- Notas -->
+                <div class="fav-notes-section">
+                    <p th:if="${fav.notes != null and !fav.notes.isEmpty()}" class="fav-notes" th:text="${fav.notes}"></p>
+                    <form th:action="@{/favorites/{id}/notes(id=${fav.id})}" method="post" class="notes-form">
+                        <textarea name="notes" placeholder="Añadir nota..." class="notes-input"
+                                  th:text="${fav.notes}"></textarea>
+                        <button type="submit" class="btn btn-xs btn-outline">Guardar nota</button>
+                    </form>
+                </div>
+
+                <!-- Alertas por email -->
+                <div class="fav-alerts-section">
+                    <p class="fav-alerts-label">&#128276; Alertas por email</p>
+                    <form th:action="@{/favorites/{id}/alerts(id=${fav.id})}" method="post" class="alerts-form">
+                        <label class="alert-toggle">
+                            <input type="checkbox" name="alertOnDeparture" value="true"
+                                   th:checked="${fav.alertOnDeparture}">
+                            <span>Aviso al zarpar <small>(Atracado → En navegación)</small></span>
+                        </label>
+                        <label class="alert-toggle">
+                            <input type="checkbox" name="alertOnArrival" value="true"
+                                   th:checked="${fav.alertOnArrival}">
+                            <span>Aviso al atracar <small>(En navegación → Atracado)</small></span>
+                        </label>
+                        <button type="submit" class="btn btn-xs btn-outline">Guardar alertas</button>
+                    </form>
+                </div>
+
+                <!-- Acciones -->
+                <div class="fav-actions">
+                    <a th:href="@{/ships/{mmsi}(mmsi=${fav.mmsi})}" class="btn btn-sm btn-primary">Ver barco</a>
+                    <form th:action="@{/favorites/remove}" method="post" style="display:inline"
+                          onsubmit="return confirm('¿Eliminar de favoritos?')">
+                        <input type="hidden" name="mmsi" th:value="${fav.mmsi}">
+                        <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+<script th:src="@{/js/main.js}"></script>
+</body>
+</html>

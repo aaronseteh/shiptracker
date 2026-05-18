@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<body>
+
+<nav th:fragment="navbar" class="navbar">
+    <div class="nav-container">
+        <a th:href="@{/}" class="nav-logo">
+            <span class="logo-icon">&#9875;</span>
+            <span>ShipTracker</span>
+        </a>
+
+        <button class="nav-toggle" id="navToggle" aria-label="Menú">
+            <span></span><span></span><span></span>
+        </button>
+
+        <ul class="nav-links" id="navLinks">
+            <li>
+                <a th:href="@{/}"
+                   th:classappend="${currentUri == '/' ? ' active' : ''}">
+                    Inicio
+                </a>
+            </li>
+            <li>
+                <a th:href="@{/map}"
+                   th:classappend="${currentUri == '/map' ? ' active' : ''}">
+                    Mapa en Vivo
+                </a>
+            </li>
+            <li>
+                <a th:href="@{/ships}"
+                   th:classappend="${#strings.startsWith(currentUri, '/ships') ? ' active' : ''}">
+                    Barcos
+                </a>
+            </li>
+            <li sec:authorize="isAuthenticated()">
+                <a th:href="@{/favorites}"
+                   th:classappend="${currentUri == '/favorites' ? ' active' : ''}">
+                    Favoritos
+                </a>
+            </li>
+        </ul>
+
+        <div class="nav-auth">
+            <div sec:authorize="isAuthenticated()" class="user-info">
+                <span class="user-avatar">&#128100;</span>
+                <span sec:authentication="name" class="username-text"></span>
+                <form th:action="@{/logout}" method="post" style="display:inline">
+                    <button type="submit" class="btn btn-sm btn-outline">Salir</button>
+                </form>
+            </div>
+            <div sec:authorize="isAnonymous()" class="auth-buttons">
+                <a th:href="@{/login}" class="btn btn-sm btn-outline">Entrar</a>
+                <a th:href="@{/register}" class="btn btn-sm btn-primary">Registrarse</a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+</body>
+</html>

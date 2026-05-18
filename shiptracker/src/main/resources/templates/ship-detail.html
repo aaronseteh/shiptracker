@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="es"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${ship.name} + ' — ShipTracker'">Barco — ShipTracker</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .ship-silhouette-wrapper {
+            background: linear-gradient(180deg, #0a1628 0%, #1e3a5f 60%, #0d2244 100%);
+            border-radius: 12px;
+            padding: 24px 32px 12px;
+            margin-bottom: 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+        .ship-silhouette-wrapper::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 28px;
+            background: linear-gradient(180deg, transparent, rgba(0,180,216,0.12));
+            border-bottom: 2px solid rgba(0,180,216,0.3);
+        }
+        .ship-silhouette-wrapper img {
+            width: 100%;
+            max-width: 520px;
+            height: auto;
+            filter: drop-shadow(0 6px 18px rgba(0,0,0,0.7));
+        }
+        .ship-silhouette-label {
+            margin-top: 10px;
+            font-size: 0.72rem;
+            color: rgba(255,255,255,0.35);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            z-index: 1;
+        }
+        .ship-photo-real {
+            width: 100%;
+            max-width: 600px;
+            max-height: 320px;
+            object-fit: cover;
+            border-radius: 8px;
+            filter: drop-shadow(0 6px 18px rgba(0,0,0,0.7));
+        }
+        .photo-credit-link {
+            margin-top: 8px;
+            font-size: 0.72rem;
+            color: rgba(255,255,255,0.45);
+            text-decoration: none;
+            z-index: 1;
+        }
+        .photo-credit-link:hover { color: rgba(255,255,255,0.75); }
+        .photo-loading {
+            font-size: 0.78rem;
+            color: rgba(255,255,255,0.35);
+            margin-top: 4px;
+            z-index: 1;
+        }
+        .detail-enriched-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 14px;
+            margin-top: 4px;
+        }
+        .enriched-item {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 8px;
+            padding: 12px 14px;
+        }
+        .enriched-item .e-key {
+            display: block;
+            font-size: 0.68rem;
+            color: var(--text-muted, #94a3b8);
+            text-transform: uppercase;
+            letter-spacing: 0.07em;
+            margin-bottom: 5px;
+        }
+        .enriched-item .e-val {
+            display: block;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-primary, #f1f5f9);
+        }
+        .external-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 4px;
+        }
+        .ext-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 9px 18px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: opacity 0.15s;
+        }
+        .ext-link:hover { opacity: 0.82; }
+        .ext-link-mt {
+            background: #1a56db;
+            color: #fff;
+        }
+        .ext-link-vf {
+            background: #0e7a59;
+            color: #fff;
+        }
+        .ext-link-ais {
+            background: #7c3aed;
+            color: #fff;
+        }
+        .no-data-hint {
+            font-size: 0.82rem;
+            color: var(--text-muted, #94a3b8);
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<main class="page-main">
+    <div class="container">
+
+        <div th:if="${success}" class="alert alert-success" th:text="${success}"></div>
+        <div th:if="${error}" class="alert alert-error" th:text="${error}"></div>
+
+        <!-- Cabecera -->
+        <div class="detail-header">
+            <div class="detail-title-group">
+                <div class="detail-badges">
+                    <span class="ship-type-badge" th:text="${ship.type}">Cargo</span>
+                    <span class="ship-flag-large" th:text="${ship.flag}">ES</span>
+                    <span class="status-badge"
+                          th:text="${ship.status}"
+                          th:classappend="${ship.status == 'En navegación' ? ' status-green' :
+                                           ship.status == 'Fondeado' ? ' status-yellow' : ' status-blue'}">
+                    </span>
+                </div>
+                <h1 th:text="${ship.name}">NOMBRE DEL BARCO</h1>
+                <p class="detail-mmsi">MMSI: <strong th:text="${ship.mmsi}">000000000</strong></p>
+            </div>
+
+            <div class="detail-actions" sec:authorize="isAuthenticated()">
+                <form th:if="${!isFavorite}" th:action="@{/favorites/add}" method="post">
+                    <input type="hidden" name="mmsi" th:value="${ship.mmsi}">
+                    <button type="submit" class="btn btn-primary">&#11088; Añadir a favoritos</button>
+                </form>
+                <div th:if="${isFavorite}" class="favorite-active">
+                    <span class="fav-label">&#11088; En tus favoritos</span>
+                    <form th:action="@{/favorites/remove}" method="post" style="display:inline">
+                        <input type="hidden" name="mmsi" th:value="${ship.mmsi}">
+                        <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>
+                    </form>
+                </div>
+            </div>
+            <div sec:authorize="isAnonymous()" class="detail-login-hint">
+                <a th:href="@{/login}">Inicia sesión</a> para guardar este barco en favoritos
+            </div>
+        </div>
+
+        <!-- Visual del buque: foto real o silueta SVG -->
+        <div class="ship-silhouette-wrapper" id="shipVisualWrapper">
+            <!-- Foto real (se inyecta si MarineTraffic la tiene) -->
+            <div id="shipPhotoSection" style="display:none; flex-direction:column; align-items:center; width:100%;">
+                <img id="shipPhotoImg" class="ship-photo-real" alt="Foto del buque"/>
+                <a id="shipPhotoCredit"
+                   th:href="'https://www.marinetraffic.com/en/ais/details/ships/mmsi:' + ${ship.mmsi}"
+                   target="_blank" rel="noopener" class="photo-credit-link">
+                    &#128247; Foto: MarineTraffic
+                </a>
+            </div>
+            <!-- Silueta SVG (fallback mientras carga o si no hay foto) -->
+            <div id="shipSilhouetteSection" style="display:flex; flex-direction:column; align-items:center; width:100%;">
+                <img th:src="@{${shipImagePath}}" th:alt="${ship.type}" />
+                <span class="ship-silhouette-label" th:text="${ship.type}">Tipo de buque</span>
+            </div>
+            <span id="photoLoadingLabel" class="photo-loading">Buscando foto...</span>
+        </div>
+
+        <div class="detail-body">
+
+            <!-- Información básica AIS -->
+            <div class="detail-card">
+                <h2 class="card-title">Identificación del buque</h2>
+                <div class="detail-grid">
+                    <div class="detail-item">
+                        <span class="detail-key">Nombre</span>
+                        <span class="detail-val" th:text="${ship.name}">-</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-key">MMSI</span>
+                        <span class="detail-val" th:text="${ship.mmsi}">-</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-key">IMO</span>
+                        <span class="detail-val" th:text="${ship.imo ?: 'N/D'}">-</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-key">Indicativo</span>
+                        <span class="detail-val" th:text="${ship.callSign ?: 'N/D'}">-</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-key">Tipo</span>
+                        <span class="detail-val" th:text="${ship.type}">-</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-key">Bandera</span>
+                        <span class="detail-val" th:text="${ship.flag ?: 'N/D'}">-</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-key">Eslora</span>
+                        <span class="detail-val" th:text="${ship.length != null ? ship.length + ' m' : 'N/D'}">-</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-key">Manga</span>
+                        <span class="detail-val" th:text="${ship.width != null ? ship.width + ' m' : 'N/D'}">-</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Posición y navegación -->
+            <div class="detail-card">
+                <h2 class="card-title">Posición y navegación</h2>
+                <div class="detail-grid">
+                    <div class="detail-item">
+                        <span class="detail-key">Estado</span>
+                        <span class="detail-val" th:text="${ship.status}">-</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-key">Velocidad</span>
+                        <span class="detail-val" th:text="${ship.speed} + ' nudos'">-</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-key">Rumbo</span>
+                        <span class="detail-val" th:text="${ship.course} + '°'">-</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-key">Destino</span>
+                        <span class="detail-val" th:text="${ship.destination ?: 'N/D'}">-</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-key">Latitud</span>
+                        <span class="detail-val" th:text="${ship.latitude}">-</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-key">Longitud</span>
+                        <span class="detail-val" th:text="${ship.longitude}">-</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-key">Última actualización</span>
+                        <span class="detail-val" th:text="${ship.lastUpdate}">-</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Enlaces externos -->
+            <div class="detail-card">
+                <h2 class="card-title">Ver en otros sitios</h2>
+                <div class="external-links">
+                    <a class="ext-link ext-link-mt"
+                       th:href="'https://www.marinetraffic.com/en/ais/details/ships/mmsi:' + ${ship.mmsi}"
+                       target="_blank" rel="noopener">
+                        &#128674; MarineTraffic — fotos y ruta
+                    </a>
+                    <a class="ext-link ext-link-vf"
+                       th:href="'https://www.vesselfinder.com/vessels/details/' + ${ship.mmsi}"
+                       target="_blank" rel="noopener">
+                        &#128270; VesselFinder
+                    </a>
+                    <a th:if="${ship.imo != null and !ship.imo.isBlank()}"
+                       class="ext-link ext-link-ais"
+                       th:href="'https://www.shipspotting.com/photos/search?callsign=' + ${ship.callSign}"
+                       target="_blank" rel="noopener">
+                        &#128247; ShipSpotting — fotos
+                    </a>
+                </div>
+            </div>
+
+            <!-- Mapa mini -->
+            <div class="detail-card detail-map-card">
+                <h2 class="card-title">Posición actual</h2>
+                <div id="shipMiniMap" class="mini-map"></div>
+            </div>
+
+        </div>
+
+        <a th:href="@{/ships}" class="btn btn-outline back-btn">&larr; Volver al listado</a>
+    </div>
+</main>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+<script th:inline="javascript">
+    const shipLat = [[${ship.latitude}]];
+    const shipLng = [[${ship.longitude}]];
+    const shipName = [[${ship.name}]];
+    const shipStatus = [[${ship.status}]];
+</script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+    const miniMap = L.map('shipMiniMap').setView([shipLat, shipLng], 6);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(miniMap);
+
+    const color = shipStatus === 'En navegación' ? '#22c55e' : shipStatus === 'Fondeado' ? '#f59e0b' : '#3b82f6';
+    const marker = L.circleMarker([shipLat, shipLng], {
+        color: color, fillColor: color, fillOpacity: 0.9, radius: 10, weight: 2
+    }).addTo(miniMap);
+    marker.bindPopup(`<strong>${shipName}</strong><br>${shipStatus}`).openPopup();
+</script>
+<script th:src="@{/js/main.js}"></script>
+<script th:inline="javascript">
+(function () {
+    const mmsi = [[${ship.mmsi}]];
+    const loadingEl = document.getElementById('photoLoadingLabel');
+    const photoSec  = document.getElementById('shipPhotoSection');
+    const silhSec   = document.getElementById('shipSilhouetteSection');
+    const photoImg  = document.getElementById('shipPhotoImg');
+
+    // El navegador intenta cargar la foto directamente desde MarineTraffic.
+    // Si la imagen carga → muestra foto; si falla → mantiene la silueta SVG.
+    const photoUrl = 'https://photos.marinetraffic.com/ais/showphoto.aspx?mmsi=' + mmsi + '&size=thumb300';
+
+    photoImg.src = photoUrl;
+
+    photoImg.onload = function () {
+        // Comprueba que sea imagen real y no un placeholder (ancho mínimo 50px)
+        if (photoImg.naturalWidth > 50) {
+            loadingEl.style.display = 'none';
+            silhSec.style.display   = 'none';
+            photoSec.style.display  = 'flex';
+        } else {
+            loadingEl.style.display = 'none';
+        }
+    };
+
+    photoImg.onerror = function () {
+        loadingEl.style.display = 'none';
+        // Silueta SVG ya visible por defecto
+    };
+})();
+</script>
+</body>
+</html>

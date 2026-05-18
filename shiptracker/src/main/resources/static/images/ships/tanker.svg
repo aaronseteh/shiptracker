@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 160">
+  <!-- Casco -->
+  <path d="M10,112 L480,112 L460,135 L30,135 Z" fill="#0a1628"/>
+  <path d="M10,112 L30,98 L460,98 L480,112 Z" fill="#1e3a5f"/>
+  <!-- Proa redondeada -->
+  <path d="M460,98 L492,112 L460,135 Z" fill="#0a1628"/>
+  <!-- Cubierta principal (lisa) -->
+  <rect x="30" y="90" width="430" height="8" fill="#374151"/>
+  <!-- Superestructura central-popa -->
+  <rect x="350" y="55" width="100" height="43" rx="3" fill="#1e4d8c"/>
+  <rect x="365" y="38" width="70" height="20" rx="2" fill="#2563eb"/>
+  <rect x="375" y="22" width="45" height="18" rx="2" fill="#3b82f6"/>
+  <!-- Chimenea gruesa -->
+  <rect x="395" y="5" width="20" height="22" rx="3" fill="#111827"/>
+  <rect x="397" y="3" width="16" height="6" rx="2" fill="#374151"/>
+  <!-- Tuberías longitudinales -->
+  <line x1="35" y1="93" x2="348" y2="93" stroke="#6b7280" stroke-width="3"/>
+  <line x1="35" y1="97" x2="348" y2="97" stroke="#4b5563" stroke-width="2"/>
+  <!-- Válvulas / conexiones -->
+  <circle cx="100" cy="93" r="5" fill="#9ca3af"/>
+  <circle cx="175" cy="93" r="5" fill="#9ca3af"/>
+  <circle cx="250" cy="93" r="5" fill="#9ca3af"/>
+  <circle cx="320" cy="93" r="5" fill="#9ca3af"/>
+  <!-- Mástil proa -->
+  <line x1="70" y1="90" x2="70" y2="48" stroke="#4b5563" stroke-width="3"/>
+  <line x1="52" y1="58" x2="88" y2="58" stroke="#4b5563" stroke-width="2"/>
+  <!-- Ventanas puente -->
+  <rect x="378" y="26" width="8" height="9" rx="1" fill="#bfdbfe"/>
+  <rect x="392" y="26" width="8" height="9" rx="1" fill="#bfdbfe"/>
+  <rect x="406" y="26" width="8" height="9" rx="1" fill="#bfdbfe"/>
+  <!-- Línea de flotación -->
+  <line x1="30" y1="122" x2="462" y2="122" stroke="#f59e0b" stroke-width="1.5" opacity="0.5"/>
+</svg>

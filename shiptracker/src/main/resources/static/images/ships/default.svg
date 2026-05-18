@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 160">
+  <!-- Casco -->
+  <path d="M15,112 L478,112 L458,135 L32,135 Z" fill="#0a1628"/>
+  <path d="M15,112 L32,97 L458,97 L478,112 Z" fill="#1e3a5f"/>
+  <!-- Proa -->
+  <path d="M458,97 L488,112 L458,135 Z" fill="#0a1628"/>
+  <!-- Superestructura central -->
+  <rect x="180" y="58" width="180" height="39" rx="3" fill="#1e4d8c"/>
+  <rect x="200" y="38" width="140" height="22" rx="3" fill="#2563eb"/>
+  <rect x="220" y="22" width="100" height="18" rx="2" fill="#3b82f6"/>
+  <!-- Chimenea -->
+  <rect x="295" y="5" width="20" height="20" rx="3" fill="#111827"/>
+  <!-- Mástil proa -->
+  <line x1="80" y1="97" x2="80" y2="48" stroke="#4b5563" stroke-width="3"/>
+  <line x1="62" y1="60" x2="98" y2="60" stroke="#4b5563" stroke-width="2"/>
+  <!-- Mástil popa -->
+  <line x1="400" y1="97" x2="400" y2="62" stroke="#4b5563" stroke-width="3"/>
+  <!-- Ventanas puente -->
+  <rect x="226" y="27" width="10" height="10" rx="1" fill="#bfdbfe"/>
+  <rect x="244" y="27" width="10" height="10" rx="1" fill="#bfdbfe"/>
+  <rect x="262" y="27" width="10" height="10" rx="1" fill="#bfdbfe"/>
+  <rect x="280" y="27" width="10" height="10" rx="1" fill="#bfdbfe"/>
+  <rect x="298" y="27" width="10" height="10" rx="1" fill="#bfdbfe"/>
+  <!-- Línea de flotación -->
+  <line x1="32" y1="122" x2="458" y2="122" stroke="#00b4d8" stroke-width="1.5" opacity="0.5"/>
+</svg>

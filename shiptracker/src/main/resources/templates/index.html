@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShipTracker — Rastreador de Barcos</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+        <h1 class="hero-title">ShipTracker<br><span class="hero-highlight">Monitorización de barcos en tiempo real</span></h1>
+        <p class="hero-sub">Proyecto de Aaron Francisco del Toro Arias &mdash; 2 DAW-N</p>
+        <div class="hero-actions">
+            <a th:href="@{/map}" class="btn btn-primary btn-lg">Ver Mapa en Vivo</a>
+            <a th:href="@{/ships}" class="btn btn-outline btn-lg">Explorar Barcos</a>
+        </div>
+    </div>
+    <div class="hero-wave">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 120">
+            <path fill="#0a1628" fill-opacity="1"
+                  d="M0,64L48,69.3C96,75,192,85,288,80C384,75,480,53,576,48C672,43,768,53,864,58.7C960,64,1056,64,1152,56C1248,48,1344,32,1392,24L1440,16L1440,120L1392,120C1344,120,1248,120,1152,120C1056,120,960,120,864,120C768,120,672,120,576,120C480,120,384,120,288,120C192,120,96,120,48,120L0,120Z">
+            </path>
+        </svg>
+    </div>
+</section>
+
+<!-- ESTADÍSTICAS -->
+<section class="stats-section">
+    <div class="container">
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon">&#128674;</div>
+                <div class="stat-number" th:text="${totalShips}">0</div>
+                <div class="stat-label">Barcos monitorizados</div>
+            </div>
+            <div class="stat-card stat-green">
+                <div class="stat-icon">&#9658;</div>
+                <div class="stat-number" th:text="${enNavegacion}">0</div>
+                <div class="stat-label">En navegación</div>
+            </div>
+            <div class="stat-card stat-yellow">
+                <div class="stat-icon">&#9875;</div>
+                <div class="stat-number" th:text="${fondeados}">0</div>
+                <div class="stat-label">Fondeados</div>
+            </div>
+            <div class="stat-card stat-blue">
+                <div class="stat-icon">&#127960;</div>
+                <div class="stat-number" th:text="${atracados}">0</div>
+                <div class="stat-label">Atracados</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- BARCOS RECIENTES -->
+<section class="recent-section">
+    <div class="container">
+        <div class="section-header">
+            <h2>Barcos destacados</h2>
+            <a th:href="@{/ships}" class="link-more">Ver todos &rarr;</a>
+        </div>
+        <div class="ships-grid">
+            <div th:each="ship : ${recentShips}" class="ship-card">
+                <div class="ship-card-header">
+                    <span class="ship-type-badge" th:text="${ship.type}">Cargo</span>
+                    <span class="ship-flag" th:text="${ship.flag}">ES</span>
+                </div>
+                <h3 class="ship-name" th:text="${ship.name}">NOMBRE</h3>
+                <div class="ship-info">
+                    <div class="ship-info-row">
+                        <span class="info-label">Estado</span>
+                        <span class="status-badge"
+                              th:text="${ship.status}"
+                              th:classappend="${ship.status == 'En navegación' ? ' status-green' :
+                                               ship.status == 'Fondeado' ? ' status-yellow' : ' status-blue'}">
+                        </span>
+                    </div>
+                    <div class="ship-info-row">
+                        <span class="info-label">Destino</span>
+                        <span th:text="${ship.destination ?: 'N/D'}">-</span>
+                    </div>
+                    <div class="ship-info-row">
+                        <span class="info-label">Velocidad</span>
+                        <span th:text="${ship.speed} + ' kn'">0 kn</span>
+                    </div>
+                </div>
+                <a th:href="@{/ships/{mmsi}(mmsi=${ship.mmsi})}" class="btn btn-sm btn-outline ship-card-btn">
+                    Ver detalles
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features-section">
+    <div class="container">
+        <h2 class="section-title">¿Qué puedes hacer?</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">&#127757;</div>
+                <h3>Mapa interactivo</h3>
+                <p>Visualiza la posición de barcos de todo el mundo en tiempo real sobre un mapa interactivo con Leaflet.js</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">&#128269;</div>
+                <h3>Búsqueda avanzada</h3>
+                <p>Busca barcos por nombre, tipo o bandera. Filtra por estado: en navegación, fondeado o atracado</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">&#11088;</div>
+                <h3>Guarda favoritos</h3>
+                <p>Registra una cuenta y guarda tus barcos favoritos con notas personalizadas para seguirlos fácilmente</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">&#128200;</div>
+                <h3>Datos en tiempo real</h3>
+                <p>Información actualizada: velocidad, rumbo, destino, dimensiones y estado de cada embarcación</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+<script th:src="@{/js/main.js}"></script>
+</body>
+</html>

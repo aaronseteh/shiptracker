@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 200">
+  <!-- Casco -->
+  <path d="M10,145 L480,145 L455,168 L35,168 Z" fill="#0a1628"/>
+  <path d="M10,145 L35,130 L455,130 L480,145 Z" fill="#1e3a5f"/>
+  <!-- Proa inclinada -->
+  <path d="M455,130 L488,145 L455,168 Z" fill="#0d2244"/>
+  <!-- Superestructura nivel 1 -->
+  <rect x="50" y="100" width="390" height="30" rx="3" fill="#e2e8f0"/>
+  <!-- Superestructura nivel 2 -->
+  <rect x="80" y="72" width="330" height="30" rx="3" fill="#f1f5f9"/>
+  <!-- Superestructura nivel 3 -->
+  <rect x="110" y="46" width="265" height="28" rx="3" fill="#f8fafc"/>
+  <!-- Superestructura nivel 4 (puente) -->
+  <rect x="150" y="24" width="180" height="24" rx="3" fill="#ffffff"/>
+  <!-- Chimeneas -->
+  <rect x="290" y="5" width="22" height="25" rx="3" fill="#dc2626"/>
+  <rect x="320" y="8" width="18" height="22" rx="3" fill="#dc2626"/>
+  <!-- Franjas decorativas -->
+  <rect x="50" y="128" width="390" height="4" fill="#1e4d8c"/>
+  <!-- Ventanas nivel 1 -->
+  <circle cx="90" cy="115" r="4" fill="#bfdbfe"/>
+  <circle cx="110" cy="115" r="4" fill="#bfdbfe"/>
+  <circle cx="130" cy="115" r="4" fill="#bfdbfe"/>
+  <circle cx="150" cy="115" r="4" fill="#bfdbfe"/>
+  <circle cx="170" cy="115" r="4" fill="#bfdbfe"/>
+  <circle cx="190" cy="115" r="4" fill="#bfdbfe"/>
+  <circle cx="210" cy="115" r="4" fill="#bfdbfe"/>
+  <circle cx="230" cy="115" r="4" fill="#bfdbfe"/>
+  <circle cx="250" cy="115" r="4" fill="#bfdbfe"/>
+  <circle cx="270" cy="115" r="4" fill="#bfdbfe"/>
+  <circle cx="290" cy="115" r="4" fill="#bfdbfe"/>
+  <circle cx="310" cy="115" r="4" fill="#bfdbfe"/>
+  <circle cx="330" cy="115" r="4" fill="#bfdbfe"/>
+  <circle cx="350" cy="115" r="4" fill="#bfdbfe"/>
+  <circle cx="370" cy="115" r="4" fill="#bfdbfe"/>
+  <circle cx="390" cy="115" r="4" fill="#bfdbfe"/>
+  <!-- Ventanas nivel 2 -->
+  <circle cx="110" cy="87" r="3.5" fill="#93c5fd"/>
+  <circle cx="130" cy="87" r="3.5" fill="#93c5fd"/>
+  <circle cx="150" cy="87" r="3.5" fill="#93c5fd"/>
+  <circle cx="170" cy="87" r="3.5" fill="#93c5fd"/>
+  <circle cx="190" cy="87" r="3.5" fill="#93c5fd"/>
+  <circle cx="210" cy="87" r="3.5" fill="#93c5fd"/>
+  <circle cx="230" cy="87" r="3.5" fill="#93c5fd"/>
+  <circle cx="250" cy="87" r="3.5" fill="#93c5fd"/>
+  <circle cx="270" cy="87" r="3.5" fill="#93c5fd"/>
+  <circle cx="290" cy="87" r="3.5" fill="#93c5fd"/>
+  <circle cx="310" cy="87" r="3.5" fill="#93c5fd"/>
+  <circle cx="330" cy="87" r="3.5" fill="#93c5fd"/>
+  <circle cx="350" cy="87" r="3.5" fill="#93c5fd"/>
+  <circle cx="370" cy="87" r="3.5" fill="#93c5fd"/>
+  <!-- Ventanas nivel 3 -->
+  <circle cx="140" cy="60" r="3" fill="#60a5fa"/>
+  <circle cx="160" cy="60" r="3" fill="#60a5fa"/>
+  <circle cx="180" cy="60" r="3" fill="#60a5fa"/>
+  <circle cx="200" cy="60" r="3" fill="#60a5fa"/>
+  <circle cx="220" cy="60" r="3" fill="#60a5fa"/>
+  <circle cx="240" cy="60" r="3" fill="#60a5fa"/>
+  <circle cx="260" cy="60" r="3" fill="#60a5fa"/>
+  <circle cx="280" cy="60" r="3" fill="#60a5fa"/>
+  <circle cx="300" cy="60" r="3" fill="#60a5fa"/>
+  <circle cx="320" cy="60" r="3" fill="#60a5fa"/>
+  <circle cx="340" cy="60" r="3" fill="#60a5fa"/>
+  <!-- Línea de flotación azul -->
+  <line x1="35" y1="155" x2="455" y2="155" stroke="#00b4d8" stroke-width="2" opacity="0.6"/>
+</svg>

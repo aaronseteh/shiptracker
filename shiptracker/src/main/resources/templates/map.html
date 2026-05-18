@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapa en Vivo — ShipTracker</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="map-page">
+
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<div class="map-layout">
+    <!-- Panel lateral -->
+    <aside class="map-sidebar">
+        <div class="sidebar-header">
+            <h2>Barcos activos</h2>
+            <span class="ship-count" id="shipCount" th:text="${ships.size()} + ' barcos'"></span>
+        </div>
+        <div class="sidebar-ws-status">
+            <span id="wsStatus" class="ws-status ws-connecting">● Conectando...</span>
+        </div>
+
+        <div class="sidebar-filters">
+            <input type="text" id="searchInput" placeholder="&#128269; Buscar barco..." class="search-input">
+            <select id="typeFilter" class="select-input">
+                <option value="">Todos los tipos</option>
+                <option value="Cargo">Carguero</option>
+                <option value="Tanque">Tanquero</option>
+                <option value="Pasajeros">Pasajeros</option>
+                <option value="RoRo">RoRo</option>
+            </select>
+        </div>
+
+        <ul class="ship-list" id="shipList">
+            <li th:each="ship : ${ships}"
+                th:data-mmsi="${ship.mmsi}"
+                th:data-lat="${ship.latitude}"
+                th:data-lng="${ship.longitude}"
+                class="ship-list-item"
+                onclick="focusShip(this)">
+                <div class="list-item-header">
+                    <span class="list-ship-name" th:text="${ship.name}">NOMBRE</span>
+                    <span class="list-ship-flag" th:text="${ship.flag}">??</span>
+                </div>
+                <div class="list-item-meta">
+                    <span class="list-type-tag" th:text="${ship.type}">Tipo</span>
+                    <span class="list-status"
+                          th:text="${ship.status}"
+                          th:classappend="${ship.status == 'En navegación' ? ' green' :
+                                           ship.status == 'Fondeado' ? ' yellow' : ' blue'}">
+                    </span>
+                </div>
+            </li>
+        </ul>
+    </aside>
+
+    <!-- Mapa -->
+    <main class="map-container" id="map"></main>
+</div>
+
+<!-- Pasar datos al JS -->
+<script th:inline="javascript">
+    const shipsData = [[${ships}]];
+    const favoriteMmsis = [[${favoriteMmsis != null ? favoriteMmsis : {}}]];
+</script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script th:src="@{/js/map.js}"></script>
+</body>
+</html>

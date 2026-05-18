@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar sesión — ShipTracker</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="auth-page">
+
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<main class="auth-main">
+    <div class="auth-card">
+        <div class="auth-header">
+            <span class="auth-icon">&#9875;</span>
+            <h1>Bienvenido de nuevo</h1>
+            <p>Inicia sesión para acceder a tus favoritos</p>
+        </div>
+
+        <div th:if="${error}" class="alert alert-error" th:text="${error}"></div>
+        <div th:if="${success}" class="alert alert-success" th:text="${success}"></div>
+
+        <form th:action="@{/login}" method="post" class="auth-form">
+            <div class="form-group">
+                <label for="username">Usuario</label>
+                <input type="text" id="username" name="username"
+                       placeholder="Tu nombre de usuario" required autocomplete="username">
+            </div>
+            <div class="form-group">
+                <label for="password">Contraseña</label>
+                <input type="password" id="password" name="password"
+                       placeholder="Tu contraseña" required autocomplete="current-password">
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Iniciar sesión</button>
+        </form>
+
+        <p class="auth-switch">
+            ¿No tienes cuenta? <a th:href="@{/register}">Regístrate gratis</a>
+        </p>
+    </div>
+</main>
+
+<script th:src="@{/js/main.js}"></script>
+</body>
+</html>
