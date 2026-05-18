@@ -1,5 +1,5 @@
 # Actividad 2 — Diagrama de Casos de Uso
-**ShipTracker · Proyecto DAW 2025 · Aaron Del Toro Arias**
+**ShipTracker · Proyecto DAW-N 2026 · Aaron Del Toro Arias**
 
 ---
 

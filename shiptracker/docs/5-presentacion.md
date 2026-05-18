@@ -1,5 +1,5 @@
 # Actividad 5 — Exposición del Proyecto en el Aula
-**ShipTracker · Proyecto DAW 2025 · Aaron Del Toro Arias**
+**ShipTracker · Proyecto DAW-N 2026 · Aaron Del Toro Arias**
 
 ---
 

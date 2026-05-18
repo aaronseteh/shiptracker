@@ -1,5 +1,5 @@
 # Actividad 4 — Estándar de Desarrollo: Documento Técnico
-**ShipTracker · Proyecto DAW 2025 · Aaron Del Toro Arias**
+**ShipTracker · Proyecto DAW-N 2026 · Aaron Del Toro Arias**
 
 ---
 

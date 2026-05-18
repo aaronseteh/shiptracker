@@ -1,5 +1,5 @@
 # Actividad 3 — Diseño del Modelo de Datos
-**ShipTracker · Proyecto DAW 2025 · Aaron Del Toro Arias**
+**ShipTracker · Proyecto DAW-N 2026 · Aaron Del Toro Arias**
 
 ---
 
